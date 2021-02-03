@@ -30,4 +30,28 @@ use Illuminate\Database\Eloquent\Model;
 class Diary extends Model
 {
     use HasFactory;
+
+    /**
+     * The table columns value
+     *
+     * @var array
+     */
+    private static $columns = [
+        'id',
+        'belongs to user(id)',
+        'belongs to user(name)',
+        'title',
+        'content',
+        'diary_date',
+        'created_at'
+    ];
+
+    /**
+     * The table columns value
+     *
+     * @return array
+     */
+    public static function columns(){
+        return Diary::$columns;
+    }
 }

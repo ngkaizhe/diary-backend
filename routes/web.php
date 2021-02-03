@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +19,4 @@ Route::get('/', function () {
 });
 
 
-Route::get('/testing', [UserController::class, 'index']);
+Route::get('/testing', [DashboardController::class, 'index'])->name('dashboard.index');

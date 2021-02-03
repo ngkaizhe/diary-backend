@@ -72,11 +72,20 @@ class User extends Authenticatable
      *
      * @var array
      */
-    public static $columns = [
+    private static $columns = [
         'id',
         'name',
         'email',
         'email_verified_at',
         'created_at'
     ];
+
+    /**
+     * The table columns value
+     *
+     * @return array
+     */
+    public static function columns(){
+        return User::$columns;
+    }
 }
