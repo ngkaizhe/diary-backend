@@ -17,10 +17,9 @@ class DiaryController extends Controller
         //
         $diaries = Diary::all();
         $columns = Diary::columns();
-        $is_user = false;
 
         return response()
-            ->view('test', compact(['diaries', 'columns', 'is_user']));
+            ->view('diary.index', compact(['diaries', 'columns']));
     }
 
     /**

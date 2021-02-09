@@ -76,8 +76,8 @@ class User extends Authenticatable
         'id',
         'name',
         'email',
-        'email_verified_at',
-        'created_at'
+        'email_verified_at(y/m/d)',
+        'created_at(y/m/d)'
     ];
 
     /**
@@ -87,5 +87,13 @@ class User extends Authenticatable
      */
     public static function columns(){
         return User::$columns;
+    }
+
+    /**
+     * Get the diaries that user owns.
+     */
+    public function diaries()
+    {
+        return $this->hasMany(Diary::class);
     }
 }

@@ -13,14 +13,14 @@
             <div class="tabs is-boxed">
                 <ul>
                     <li class="is-active">
-                        <a href="{{route('dashboard.index', ['is_user'=>true])}}">
+                        <a href="{{route('user.index')}}">
                             <span class="icon is-small is-black"><i class="fas fa-users" aria-hidden="true"></i></span>
                             <span>Users</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="{{route('dashboard.index', ['is_user'=>false])}}">
+                        <a href="{{route('diary.index')}}">
                             <span class="icon is-small is-black"><i class="fas fa-book" aria-hidden="true"></i></span>
                             <span>Diaries</span>
                         </a>

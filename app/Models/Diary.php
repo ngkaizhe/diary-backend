@@ -42,8 +42,8 @@ class Diary extends Model
         'belongs to user(name)',
         'title',
         'content',
-        'diary_date',
-        'created_at'
+        'diary_date(y/m/d)',
+        'created_at(y/m/d)'
     ];
 
     /**
@@ -53,5 +53,13 @@ class Diary extends Model
      */
     public static function columns(){
         return Diary::$columns;
+    }
+
+    /**
+     * Get the user that owns the diary.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

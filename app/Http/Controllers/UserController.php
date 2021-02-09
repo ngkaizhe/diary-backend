@@ -18,10 +18,9 @@ class UserController extends Controller
         //
         $users = User::all();
         $columns = User::columns();
-        $is_user = true;
 
         return response()
-            ->view('test', compact(['users', 'columns', 'is_user']));
+            ->view('user.index', compact(['users', 'columns']));
     }
 
     /**

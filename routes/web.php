@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DiaryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +20,8 @@ Route::get('/', function () {
 });
 
 
-Route::get('/testing', [DashboardController::class, 'index'])->name('dashboard.index');
+// users view
+Route::get('/testing', [UserController::class, 'index'])->name('user.index');
+
+// diaries view
+Route::get('/diaries', [DiaryController::class, 'index'])->name('diary.index');
