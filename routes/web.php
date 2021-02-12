@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 
 // users view
-Route::get('/testing', [UserController::class, 'index'])->name('user.index');
+Route::get('/testing', [UserController::class, 'index'])->name('users.index');
 
 // diaries view
-Route::get('/diaries', [DiaryController::class, 'index'])->name('diary.index');
+Route::get('/diaries', [DiaryController::class, 'index'])->name('diaries.index');

@@ -14,9 +14,38 @@ class DiaryController extends Controller
      */
     public function index()
     {
+
+        // get the request parameter
+        // sort_by
+        $sort_by = request()->get('sort_by');
+        // ascending order or descending order
+        $is_ascen = request()->get('is_ascen');
+
         //
         $diaries = Diary::all();
         $columns = Diary::columns();
+
+        $diaries_collection = collect([]);
+
+        // update some values of the $diaries_collection var
+        foreach ($diaries as $diary){
+            $tempDiary = [];
+
+            $tempDiary[$columns[0]] = $diary->id;
+            $tempDiary[$columns[1]] = $diary->user->id;
+            $tempDiary[$columns[2]] = $diary->user->name;
+            $tempDiary[$columns[3]] = str_limit($diary->title, $limit = 10, $end = '...');
+            $tempDiary[$columns[4]] = str_limit($diary->content, $limit = 20, $end = '...');
+            $tempDiary[$columns[5]] = date('Y/m/d', strtotime($diary->diary_date));
+            $tempDiary[$columns[6]] = date('Y/m/d', strtotime($diary->created_at));
+
+            $diaries_collection->push($tempDiary);
+        }
+
+        $diaries = $diaries_collection->sortBy($columns[$sort_by]);
+        if(!$is_ascen){
+            $diaries = $diaries->reverse();
+        }
 
         return response()
             ->view('diary.index', compact(['diaries', 'columns']));

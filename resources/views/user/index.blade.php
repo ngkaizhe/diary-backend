@@ -7,14 +7,14 @@
         <div class="tabs is-boxed">
             <ul>
                 <li class="is-active">
-                    <a href="{{route('user.index')}}">
+                    <a href="{{route('users.index')}}">
                         <span class="icon is-small is-black"><i class="fas fa-users" aria-hidden="true"></i></span>
                         <span>Users</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{route('diary.index')}}">
+                    <a href="{{route('diaries.index')}}">
                         <span class="icon is-small is-black"><i class="fas fa-book" aria-hidden="true"></i></span>
                         <span>Diaries</span>
                     </a>
@@ -22,20 +22,20 @@
             </ul>
         </div>
 
-        <table class="table">
+        <table class="table is-hoverable is-fullwidth is-striped">
             <thead>
-            <tr>
-                @foreach($columns as $column)
-                    <th>{{$column}}</th>
-                @endforeach
-            </tr>
+                <tr class="has-background-primary">
+                    @foreach($columns as $column)
+                        <th>{{$column}}</th>
+                    @endforeach
+                </tr>
             </thead>
             <tfoot>
-            <tr>
-                @foreach($columns as $column)
-                    <th>{{$column}}</th>
-                @endforeach
-            </tr>
+                <tr class="has-background-primary">
+                    @foreach($columns as $column)
+                        <th>{{$column}}</th>
+                    @endforeach
+                </tr>
             </tfoot>
             <tbody>
             @foreach($users as $user)
