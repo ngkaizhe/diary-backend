@@ -42,9 +42,14 @@ class DiaryController extends Controller
             $diaries_collection->push($tempDiary);
         }
 
-        $diaries = $diaries_collection->sortBy($columns[$sort_by]);
-        if(!$is_ascen){
-            $diaries = $diaries->reverse();
+        if($sort_by !== null){
+            $diaries = $diaries_collection->sortBy($columns[$sort_by]);
+            if(!$is_ascen){
+                $diaries = $diaries->reverse();
+            }
+        }
+        else{
+            $diaries = $diaries_collection;
         }
 
         return response()

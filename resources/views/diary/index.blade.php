@@ -22,21 +22,37 @@
             </ul>
         </div>
 
-        <table class="table is-hoverable is-fullwidth is-striped">
+        <table class="table is-hoverable is-fullwidth is-striped is-bordered">
             <thead>
                 <tr class="has-background-primary">
                     @foreach($columns as $column)
                         <th>
-                            <a href="{{ URL::route('diaries.index',
-                                [
-                                'sort_by' => $loop->index,
-                                'is_ascen' => Request::get('sort_by') == $loop->index && Request::get('is_ascen') ? false : true,
-                                ]) }}">{{$column}}
+                            @if(Request::has('sort_by'))
+                                <a  class= "{{ Request::get('sort_by') == $loop->index ? 'has-text-dark' : ''}}"
 
-                                <span class="icon {{ Request::get('sort_by') == $loop->index ? 'has-text-dark' : ''}}">
-                                    <i class="fas {{ Request::get('sort_by') == $loop->index && Request::get('is_ascen') ? 'fa-angle-down' : 'fa-angle-up'}}"></i>
-                                </span>
-                            </a>
+                                    href = "{{ URL::route('diaries.index',
+                                    [
+                                        'sort_by' => $loop->index,
+                                        'is_ascen' => Request::get('sort_by') == $loop->index && Request::get('is_ascen') ? false : true,
+                                    ]) }}" >{{$column}}
+
+                                    <span class="icon">
+                                        <i class="fas {{ Request::get('sort_by') == $loop->index && Request::get('is_ascen') ? 'fa-angle-down' : 'fa-angle-up'}}"></i>
+                                    </span>
+                                </a>
+                            @else
+                                <a  class= "{{ $loop->first ? 'has-text-dark' : ''}}"
+                                    href = "{{ URL::route('diaries.index',
+                                    [
+                                    'sort_by' => $loop->index,
+                                    'is_ascen' => true,
+                                    ]) }}" >{{$column}}
+
+                                    <span class="icon">
+                                        <i class="fas fa-angle-down"></i>
+                                    </span>
+                                </a>
+                            @endif
 
                         </th>
                     @endforeach
@@ -53,7 +69,13 @@
             @foreach($diaries as $diary)
                 <tr>
                     @foreach($columns as $column)
-                        <th>{{$diary[$column]}}</th>
+                        <th class="{{
+                            (Request::has('sort_by') ?
+                            ($loop->index == Request::get('sort_by') ? 'has-background-link-light' : '')
+                            :
+                            ($loop->first ? 'has-background-link-light' : ''))
+                        }}">{{$diary[$column]}}
+                        </th>
                     @endforeach
                 </tr>
             @endforeach
