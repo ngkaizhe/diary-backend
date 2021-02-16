@@ -15,9 +15,40 @@ class UserController extends Controller
      */
     public function index()
     {
+        // get the request parameter
+        // sort_by
+        $sort_by = request()->get('sort_by');
+        // ascending order or descending order
+        $is_ascen = request()->get('is_ascen');
+
         //
         $users = User::all();
         $columns = User::columns();
+
+        $users_collection = collect([]);
+
+        // update some values of the $diaries_collection var
+        foreach ($users as $user){
+            $tempUser = [];
+
+            $tempUser[$columns[0]] = $user->id;
+            $tempUser[$columns[1]] = $user->name;
+            $tempUser[$columns[2]] = $user->email;
+            $tempUser[$columns[3]] = date('Y/m/d', strtotime($user->email_verified_at));
+            $tempUser[$columns[4]] = date('Y/m/d', strtotime($user->created_at));
+
+            $users_collection->push($tempUser);
+        }
+
+        if($sort_by !== null){
+            $users = $users_collection->sortBy($columns[$sort_by]);
+            if(!$is_ascen){
+                $users = $users->reverse();
+            }
+        }
+        else{
+            $users = $users_collection;
+        }
 
         return response()
             ->view('user.index', compact(['users', 'columns']));

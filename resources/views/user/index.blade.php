@@ -26,7 +26,35 @@
             <thead>
                 <tr class="has-background-primary">
                     @foreach($columns as $column)
-                        <th>{{$column}}</th>
+                        <th>
+                            @if(Request::has('sort_by'))
+                                <a  class= "{{ Request::get('sort_by') == $loop->index ? 'has-text-dark' : ''}}"
+
+                                    href = "{{ URL::route('users.index',
+                                    [
+                                        'sort_by' => $loop->index,
+                                        'is_ascen' => Request::get('sort_by') == $loop->index && Request::get('is_ascen') ? false : true,
+                                    ]) }}" >{{$column}}
+
+                                    <span class="icon">
+                                        <i class="fas {{ Request::get('sort_by') == $loop->index && Request::get('is_ascen') ? 'fa-angle-down' : 'fa-angle-up'}}"></i>
+                                    </span>
+                                </a>
+                            @else
+                                <a  class= "{{ $loop->first ? 'has-text-dark' : ''}}"
+                                    href = "{{ URL::route('users.index',
+                                    [
+                                    'sort_by' => $loop->index,
+                                    'is_ascen' => true,
+                                    ]) }}" >{{$column}}
+
+                                    <span class="icon">
+                                        <i class="fas fa-angle-down"></i>
+                                    </span>
+                                </a>
+                            @endif
+
+                        </th>
                     @endforeach
                 </tr>
             </thead>
@@ -40,16 +68,15 @@
             <tbody>
             @foreach($users as $user)
                 <tr>
-                    {{-- user's id --}}
-                    <th>{{$user->id}}</th>
-                    {{-- user's name --}}
-                    <td>{{$user->name}}</td>
-                    {{-- user's email --}}
-                    <td>{{$user->email}}</td>
-                    {{-- user's email verified date --}}
-                    <td>{{date('Y/m/d', strtotime($user->email_verified_at))}}</td>
-                    {{-- user's created at --}}
-                    <td>{{date('Y/m/d', strtotime($user->created_at))}}</td>
+                    @foreach($columns as $column)
+                        <th class="{{
+                            (Request::has('sort_by') ?
+                            ($loop->index == Request::get('sort_by') ? 'has-background-link-light' : '')
+                            :
+                            ($loop->first ? 'has-background-link-light' : ''))
+                        }}">{{$user[$column]}}
+                        </th>
+                    @endforeach
                 </tr>
             @endforeach
             </tbody>
