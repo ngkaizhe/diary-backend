@@ -38,12 +38,12 @@ class Diary extends Model
      */
     private static $columns = [
         'id',
-        'belongs to user(id)',
-        'belongs to user(name)',
+        'user id',
+        'user name',
         'title',
         'content',
-        'diary_date(y/m/d)',
-        'created_at(y/m/d)'
+        'diary_date',
+        'created_at'
     ];
 
     /**

@@ -64,6 +64,8 @@ class DiaryController extends Controller
     public function create()
     {
         //
+        return response()
+            ->view('diary.create');
     }
 
     /**
