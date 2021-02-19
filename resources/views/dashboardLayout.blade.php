@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
     <link href={{ asset('sass/app.css')}} rel="stylesheet" type="text/css" media="all" />
+    <link href="{{}}" rel="stylesheet">
 </head>
 
 <body>

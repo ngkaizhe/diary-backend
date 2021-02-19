@@ -15,4 +15,5 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ])
-    .sass('resources/sass/app.scss', 'public/sass');
+    .sass('resources/sass/app.scss', 'public/sass')
+    .copy('node_modules/bulma-calendar/dist/js/bulma-calendar.min.js','public/js');
