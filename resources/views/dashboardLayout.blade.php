@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
     <link href={{ asset('sass/app.css')}} rel="stylesheet" type="text/css" media="all" />
-    <link href="{{}}" rel="stylesheet">
+    <link href="{{asset('css/app.css')}}" rel="stylesheet" type="text/css" media="all" />
+    <script src="{{ asset("js/bulma-calendar.min.js") }}"></script>
 </head>
 
 <body>

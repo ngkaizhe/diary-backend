@@ -3,8 +3,13 @@
 @section('title', 'Create Diary')
 
 @section('view_content')
-    <div>
 
+
+    <div class="field">
+        <label class="label">Date</label>
+        <div class="control">
+            <input type="date">
+        </div>
     </div>
 
     <div class="field">

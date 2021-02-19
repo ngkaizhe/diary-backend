@@ -1,5 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/sass/app.css": "/sass/app.css"
+    "/sass/app.css": "/sass/app.css",
+    "/js/bulma-calendar.min.js": "/js/bulma-calendar.min.js"
 }
