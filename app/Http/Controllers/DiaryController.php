@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Diary;
 use Illuminate\Http\Request;
 
@@ -77,6 +78,15 @@ class DiaryController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validateArticle($request);
+
+        $diary = new Diary($request->all(['title', 'content', 'diary_date']));
+
+        $diary->user_id = 1; // TODO: hard code part, please change it when the authentication function has finished
+        $diary->save();
+
+        // go back to the index page
+        return redirect(route('diaries.index'));
     }
 
     /**
@@ -122,5 +132,15 @@ class DiaryController extends Controller
     public function destroy(Diary $diary)
     {
         //
+    }
+
+    // help to validate the input request
+    private function validateArticle(Request $request)
+    {
+        return $request->validate([
+            'title' => ['required'],
+            'content' => ['required'],
+            'date' => ['date', 'before:tomorrow'],
+        ]);
     }
 }

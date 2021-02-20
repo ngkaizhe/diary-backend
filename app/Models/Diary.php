@@ -31,6 +31,12 @@ class Diary extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'content',
+        'diary_date'
+    ];
+
     /**
      * The table columns value
      *
