@@ -77,8 +77,8 @@ class DiaryController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $this->validateArticle($request);
+        // validate the diary from the request
+        $this->validateDiary($request);
 
         $diary = new Diary($request->all(['title', 'content', 'diary_date']));
 
@@ -98,6 +98,7 @@ class DiaryController extends Controller
     public function show(Diary $diary)
     {
         //
+        return view('diary.show', compact('diary'));
     }
 
     /**
@@ -109,6 +110,7 @@ class DiaryController extends Controller
     public function edit(Diary $diary)
     {
         //
+        return view('diary.edit', compact('diary'));
     }
 
     /**
@@ -121,6 +123,12 @@ class DiaryController extends Controller
     public function update(Request $request, Diary $diary)
     {
         //
+        $diary->update($this->validateDiary($request));
+
+        $diary->save();
+
+        // go back to the index page
+        return redirect(route('diaries.index'));
     }
 
     /**
@@ -132,15 +140,21 @@ class DiaryController extends Controller
     public function destroy(Diary $diary)
     {
         //
+        $diary->delete();
+
+        return redirect(route('diaries.index'));
     }
 
     // help to validate the input request
-    private function validateArticle(Request $request)
+    private function validateDiary(Request $request)
     {
+        // change the type of diary_date from 'string' to 'date'
+        $request->diary_date = date($request->diary_date);
+
         return $request->validate([
             'title' => ['required'],
             'content' => ['required'],
-            'date' => ['date', 'before:tomorrow'],
+            'diary_date' => ['required', 'date', 'before:tomorrow'],
         ]);
     }
 }

@@ -83,9 +83,13 @@
                 @endforeach
 
                     <th>
-                        <button class="button is-success">Show</button>
-                        <button class="button is-link">Edit</button>
-                        <button class="button is-success is-light">Delete</button>
+                        <button class="button is-success" onclick="window.location='{{route('diaries.show', $diary['id'])}}'">Show</button>
+                        <button class="button is-link" onclick="window.location='{{route('diaries.edit', $diary['id'])}}'">Edit</button>
+                        <form action="{{ route('diaries.destroy', $diary['id']) }}" method="post">
+                            <input class="button is-success is-light" type="submit" value="Delete" />
+                            @method('delete')
+                            @csrf
+                        </form>
                     </th>
             </tr>
 
