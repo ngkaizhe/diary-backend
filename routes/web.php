@@ -19,9 +19,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// authentication part
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
+require __DIR__.'/auth.php';
+
+// after authentication
 // users view
-Route::resource('/users', UserController::class);
-
+Route::resource('/users', UserController::class)->middleware(['auth']);
 // diaries view
-Route::resource('diaries', DiaryController::class);
+Route::resource('diaries', DiaryController::class)->middleware(['auth']);
+
+// api part
