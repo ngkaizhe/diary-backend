@@ -21,14 +21,14 @@ Route::get('/', function () {
 
 // authentication part
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('users.index');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 
 // after authentication
 // users view
-Route::resource('/users', UserController::class)->middleware(['auth']);
+Route::resource('users', UserController::class)->middleware(['auth']);
 // diaries view
 Route::resource('diaries', DiaryController::class)->middleware(['auth']);
 

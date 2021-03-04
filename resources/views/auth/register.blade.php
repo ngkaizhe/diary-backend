@@ -1,59 +1,106 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.guest')
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+@section('title', 'Register')
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+@section('view_content')
 
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
+    <div class="columns">
+        <div class="column is-half is-offset-one-quarter">
+            <div class="box">
+                <h1 class="title">Register</h1>
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
-            </div>
+                <form method="POST" action="{{ route('register') }}">
+                @csrf
 
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
+                <!-- Name -->
+                    <div class="field">
+                        <label class="label">Name</label>
+                        <div class="control">
+                            <input
+                                class="input {{$errors->has('name') ? 'is-danger' : ''}} "
+                                type="text"
+                                name="name"
+                                id="name"
+                                required
+                                autofocus
+                                value="{{old('name')}}"
+                            >
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
+                            @error('name')
+                            <p class="help is-danger">{{ $errors->first('name') }}</p>
+                            @enderror
+                        </div>
+                    </div>
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+                    <!-- Email Address-->
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control">
+                            <input
+                                class="input {{$errors->has('email') ? 'is-danger' : ''}}"
+                                type="email"
+                                name="email"
+                                id="email"
+                                value="{{old('email')}}"
+                                required
+                            >
 
-                <x-input id="password" class="block mt-1 w-full"
+                            @error('email')
+                            <p class="help is-danger">{{ $errors->first('email') }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control">
+                            <input
+                                class="input {{$errors->has('password') ? 'is-danger' : ''}}"
                                 type="password"
                                 name="password"
-                                required autocomplete="new-password" />
-            </div>
+                                id="password"
+                                required
+                                autocomplete="new-password"
+                            >
 
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+                            @error('password')
+                            <p class="help is-danger">{{ $errors->first('password') }}</p>
+                            @enderror
+                        </div>
+                    </div>
 
-                <x-input id="password_confirmation" class="block mt-1 w-full"
+                    <!-- Confirm Password -->
+                    <div class="field">
+                        <label class="label">Confirm Password</label>
+                        <div class="control">
+                            <input
+                                class="input {{$errors->has('password_confirmation') ? 'is-danger' : ''}}"
                                 type="password"
-                                name="password_confirmation" required />
-            </div>
+                                name="password_confirmation"
+                                id="password_confirmation"
+                                required
+                            >
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
+                            @error('password_confirmation')
+                            <p class="help is-danger">{{ $errors->first('password_confirmation') }}</p>
+                            @enderror
+                        </div>
+                    </div>
 
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
+                    <!-- Register Button -->
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <a class="py-4 is-link" href="{{ route('login') }}">Already registered?</a>
+                        </div>
+                        <div class="control">
+                            <button class="button is-link is-light" type="submit">Register</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+        </div>
+    </div>
+
+@endsection
+

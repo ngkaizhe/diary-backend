@@ -22,6 +22,25 @@
                     <ul class="menu-list">
                         <li><a href="{{route('users.index')}}">Dashboard</a></li>
                         <li><a href="{{route('diaries.create')}}">Create Diary</a></li>
+                        <li>
+                            <div class="dropdown is-hoverable">
+                                <div class="dropdown-trigger">
+                                    <a aria-haspopup="true" aria-controls="dropdown-menu4">
+                                        <span>ngkaizhe</span>
+                                        <span class="icon is-small">
+                                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                                    <div class="dropdown-content">
+                                        <div class="dropdown-item">
+                                            TODO: Logout
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </aside>
             </div>

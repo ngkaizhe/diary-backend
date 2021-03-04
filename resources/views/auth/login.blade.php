@@ -1,56 +1,85 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.guest')
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+@section('title', 'Login')
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+@section('view_content')
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
+    <div class="columns">
+        <div class="column is-half is-offset-one-quarter">
+            <div class="box">
+                <h1 class="title">Login</h1>
 
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
+                <form method="POST" action="{{ route('login') }}">
+                @csrf
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
+                <!-- Email Address-->
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control">
+                            <input
+                                class="input {{$errors->has('email') ? 'is-danger' : ''}}"
+                                type="email"
+                                name="email"
+                                id="email"
+                                value="{{old('email')}}"
+                                required
+                            >
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+                            @error('email')
+                            <p class="help is-danger">{{ $errors->first('email') }}</p>
+                            @enderror
+                        </div>
+                    </div>
 
-                <x-input id="password" class="block mt-1 w-full"
+                    <!-- Password -->
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control">
+                            <input
+                                class="input {{$errors->has('password') ? 'is-danger' : ''}}"
                                 type="password"
                                 name="password"
-                                required autocomplete="current-password" />
-            </div>
+                                id="password"
+                                required
+                                autocomplete="new-password"
+                            >
 
-            <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
+                            @error('password')
+                            <p class="help is-danger">{{ $errors->first('password') }}</p>
+                            @enderror
+                        </div>
+                    </div>
 
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
+                    <!-- Remember Me -->
+                    <div class="field">
+                        <div class="control">
+                            <label class="checkbox">
+                                <input
+                                    type="checkbox"
+                                    name="remember_me"
+                                    id="remember_me"
+                                >
+                                Remember Me
+                            </label>
+                        </div>
+                    </div>
 
-                <x-button class="ml-3">
-                    {{ __('Log in') }}
-                </x-button>
+                    <!-- Register Button -->
+                    <div class="field is-grouped">
+                        @if(Route::has('password.request'))
+                            <div class="control">
+                                <a class="is-link" href="{{ route('password.request') }}">Forgot your password?</a>
+                            </div>
+                        @endif
+
+                        <div class="control">
+                            <button class="button is-link is-light" type="submit">Login</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+        </div>
+    </div>
+
+
+@endsection
