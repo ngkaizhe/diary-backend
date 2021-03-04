@@ -26,7 +26,7 @@
                             <div class="dropdown is-hoverable">
                                 <div class="dropdown-trigger">
                                     <a aria-haspopup="true" aria-controls="dropdown-menu4">
-                                        <span>ngkaizhe</span>
+                                        <span>{{ Auth::user()->name }}</span>
                                         <span class="icon is-small">
                                             <i class="fas fa-angle-down" aria-hidden="true"></i>
                                         </span>
@@ -35,7 +35,11 @@
                                 <div class="dropdown-menu" id="dropdown-menu4" role="menu">
                                     <div class="dropdown-content">
                                         <div class="dropdown-item">
-                                            TODO: Logout
+                                            <!-- Authentication -->
+                                            <form id="logout_form" method="POST" action="{{ route('logout') }}">
+                                                @csrf
+                                            </form>
+                                            <a href="javascript:void(0)" onclick="document.getElementById('logout_form').submit()">Logout</a>
                                         </div>
                                     </div>
                                 </div>
