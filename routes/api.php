@@ -23,8 +23,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/register', [Api\AuthController::class, 'register']);
 Route::post('/login', [Api\AuthController::class, 'login']);
 
-Route::group(['middleware'=> ['auth:sanctum']], function (){
-    Route::apiResource('diaries', Api\DiaryController::class);
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/diaries', [Api\DiaryController::class, 'index']);
+    Route::post('/diaries', [Api\DiaryController::class, 'store']);
+    Route::put('/diaries/{diary}', [Api\DiaryController::class, 'update']);
+    Route::delete('/diaries/{diary}', [Api\DiaryController::class, 'destroy']);
 
     Route::post('/logout', [Api\AuthController::class, 'logout']);
 });

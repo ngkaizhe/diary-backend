@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Diary;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DiaryController extends Controller
 {
@@ -15,7 +16,6 @@ class DiaryController extends Controller
      */
     public function index()
     {
-
         // get the request parameter
         // sort_by
         $sort_by = request()->get('sort_by');
@@ -29,7 +29,7 @@ class DiaryController extends Controller
         $diaries_collection = collect([]);
 
         // update some values of the $diaries_collection var
-        foreach ($diaries as $diary){
+        foreach ($diaries as $diary) {
             $tempDiary = [];
 
             $tempDiary[$columns[0]] = $diary->id;
@@ -43,13 +43,12 @@ class DiaryController extends Controller
             $diaries_collection->push($tempDiary);
         }
 
-        if($sort_by !== null){
+        if ($sort_by !== null) {
             $diaries = $diaries_collection->sortBy($columns[$sort_by]);
-            if(!$is_ascen){
+            if (!$is_ascen) {
                 $diaries = $diaries->reverse();
             }
-        }
-        else{
+        } else {
             $diaries = $diaries_collection;
         }
 
@@ -72,7 +71,7 @@ class DiaryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -82,7 +81,7 @@ class DiaryController extends Controller
 
         $diary = new Diary($request->all(['title', 'content', 'diary_date']));
 
-        $diary->user_id = 1; // TODO: hard code part, please change it when the authentication function has finished
+        $diary->user_id = Auth::user()->id;
         $diary->save();
 
         // go back to the index page
@@ -92,7 +91,7 @@ class DiaryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Diary  $diary
+     * @param \App\Models\Diary $diary
      * @return \Illuminate\Http\Response
      */
     public function show(Diary $diary)
@@ -104,7 +103,7 @@ class DiaryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Diary  $diary
+     * @param \App\Models\Diary $diary
      * @return \Illuminate\Http\Response
      */
     public function edit(Diary $diary)
@@ -116,8 +115,8 @@ class DiaryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Diary  $diary
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Diary $diary
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Diary $diary)
@@ -134,7 +133,7 @@ class DiaryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Diary  $diary
+     * @param \App\Models\Diary $diary
      * @return \Illuminate\Http\Response
      */
     public function destroy(Diary $diary)
