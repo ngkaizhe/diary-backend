@@ -31,5 +31,3 @@ require __DIR__.'/auth.php';
 Route::resource('users', UserController::class)->middleware(['auth']);
 // diaries view
 Route::resource('diaries', DiaryController::class)->middleware(['auth']);
-
-// api part
