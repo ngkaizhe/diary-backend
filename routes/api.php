@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+// register and login function
 Route::post('/register', [Api\AuthController::class, 'register']);
 Route::post('/login', [Api\AuthController::class, 'login']);
 
