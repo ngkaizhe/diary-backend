@@ -57,6 +57,7 @@ class DiaryController extends Controller
         return response()->json([
             'status_code' => 200,
             'message' => 'Diary stored successfully',
+            'id' => $diary->id,
         ]);
     }
 
@@ -70,9 +71,8 @@ class DiaryController extends Controller
     {
         // you shouldn't called this function
         return response()->json([
-            'status_code' => 400,
             'message' => 'Bad Request',
-        ]);
+        ])->setStatusCode(400);
         //
 //        if (auth()->user()->id == $diary->user_id) {
 //            return response()->json([
@@ -102,9 +102,8 @@ class DiaryController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'status_code' => 400,
                 'message' => 'Diary failed validation',
-            ]);
+            ])->setStatusCode(400);
         }
 
         if ($diary->user_id == Auth::user()->id) {
@@ -112,14 +111,12 @@ class DiaryController extends Controller
             $diary->save();
 
             return response()->json([
-                'status_code' => 200,
                 'message' => 'Diary updated successfully',
-            ]);
+            ])->setStatusCode(200);
         } else {
             return response()->json([
-                'status_code' => 400,
                 'message' => 'You dont have enough rights',
-            ]);
+            ])->setStatusCode(400);
         }
 
     }
@@ -137,16 +134,13 @@ class DiaryController extends Controller
             $diary->delete();
 
             return response()->json([
-                'status_code' => 200,
                 'message' => 'Diary deleted successfully',
-            ]);
+            ])->setStatusCode(200);
         } else {
             return response()->json([
-                'status_code' => 400,
                 'message' => 'You dont have enough rights',
-            ]);
+            ])->setStatusCode(400);
         }
-
     }
 
     // help to validate the input request

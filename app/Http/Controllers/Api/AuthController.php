@@ -25,9 +25,8 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'status_code' => 400,
                 'message' => 'Bad Request',
-            ]);
+            ])->setStatusCode(400);
         }
 
         User::create([
@@ -37,9 +36,8 @@ class AuthController extends Controller
         ]);
 
         return response()->json([
-            'status_code' => '200',
             'message' => 'User created successfully',
-        ]);
+        ])->setStatusCode(200);
     }
 
     public function login(Request $request)
@@ -52,17 +50,15 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'status_code' => 400,
                 'message' => 'Bad Request',
-            ]);
+            ])->setStatusCode(400);
         }
 
         $credentials = $request->only('email', 'password');
         if (!Auth::attempt($credentials)) {
             return response()->json([
-                'status_code' => 500,
                 'message' => 'Unauthorized User',
-            ]);
+            ])->setStatusCode(500);
         }
 
         $user = User::where('email', $request->email)->first();
@@ -70,19 +66,17 @@ class AuthController extends Controller
         $tokenResult = $user->createToken('authToken')->plainTextToken;
 
         return response()->json([
-            'status_code' => 200,
             'token' => $tokenResult,
-        ]);
+        ])->setStatusCode(200);
     }
 
     public function logout(Request $request)
     {
         // Revoke the token that was used to authenticate the current request...
-        $request->user()->currentAccessToken()->delete();
+        $request->user()->tokens()->delete();
 
         return response()->json([
-            'status_code' => 200,
             'token' => 'Token delete successfully',
-        ]);
+        ])->setStatusCode(200);
     }
 }
