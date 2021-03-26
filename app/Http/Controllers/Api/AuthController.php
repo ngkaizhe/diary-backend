@@ -25,7 +25,7 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Bad Request',
+                'message' => $validator->errors(),
             ])->setStatusCode(400);
         }
 
@@ -67,6 +67,7 @@ class AuthController extends Controller
 
         return response()->json([
             'token' => $tokenResult,
+            'username' => $user->name,
         ])->setStatusCode(200);
     }
 
