@@ -50,14 +50,18 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Bad Request',
+                'message' => [
+                    '0' => ['Bad Request']
+                ],
             ])->setStatusCode(400);
         }
 
         $credentials = $request->only('email', 'password');
         if (!Auth::attempt($credentials)) {
             return response()->json([
-                'message' => 'Unauthorized User',
+                'message' => [
+                    '0' => ['Unauthorized User']
+                ],
             ])->setStatusCode(500);
         }
 
