@@ -20,9 +20,9 @@ class UserSeeder extends Seeder
         // we create 10 users per time
 
         DB::table('users')->insert([
-            'name' => 'ngkaizhe',
-            'email' => 'kaizhe1991@hotmail.com',
-            'password' => Hash::make('NGkaizhe1150'),
+            'name' => 'ngkaizhe testing',
+            'email' => 'kaizhe1998@hotmail.com',
+            'password' => Hash::make('password123'),
             'email_verified_at' => $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = 'UTC'),
             'created_at' => $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = 'UTC'),
         ]);
