@@ -18,11 +18,19 @@ class UserSeeder extends Seeder
     {
         $faker = Factory::create();
         // we create 10 users per time
-        for ($i = 0; $i < 10; $i++) {
+
+        DB::table('users')->insert([
+            'name' => 'ngkaizhe',
+            'email' => 'kaizhe1991@hotmail.com',
+            'password' => Hash::make('NGkaizhe1150'),
+            'email_verified_at' => $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = 'UTC'),
+            'created_at' => $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = 'UTC'),
+        ]);
+        for ($i = 0; $i < 20; $i++) {
             DB::table('users')->insert([
                 'name' => $faker->name,
                 'email' => $faker->email,
-                'password' => Hash::make('password'.$i),
+                'password' => Hash::make('password123'),
                 'email_verified_at' => $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = 'UTC'),
                 'created_at' => $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now', $timezone = 'UTC'),
             ]);
